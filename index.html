@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Giveaway Entry</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#070a12;
+      --bg1:#09122a;
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.045);
+      --line: rgba(255,255,255,.12);
+      --line2: rgba(255,255,255,.18);
+      --txt:#ffffff;
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.58);
+      --glow: rgba(13,110,253,.28);
+      --good: rgba(25,135,84,1);
+    }
+
+    /* ===== Premium background ===== */
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(13,110,253,.22), transparent 55%),
+        radial-gradient(1000px 700px at 90% 30%, rgba(25,135,84,.16), transparent 60%),
+        radial-gradient(900px 650px at 50% 100%, rgba(168,85,247,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      color: var(--txt);
+    }
+
+    /* ===== Force all text white ===== */
+    body, .card, label, p, span, div, h1,h2,h3,h4,h5,h6, small{
+      color: var(--txt) !important;
+    }
+
+    .small-muted{ color: var(--muted) !important; }
+    .tiny-muted{ color: var(--muted2) !important; font-size: 12.5px; }
+
+    /* ===== Top bar ===== */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom: 12px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ===== Bigger logo ===== */
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin: 10px 0 18px;
+    }
+    .brand img{
+      height: 108px; /* logo size */
+      width:auto;
+      object-fit:contain;
+      filter: drop-shadow(0 18px 22px rgba(0,0,0,.45));
+      border-radius: 14px;
+    }
+    @media (max-width: 520px){
+      .brand img{ height: 84px; }
+    }
+
+    /* ===== Premium glass card ===== */
+    .card{
+      background: var(--glass2);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow:
+        0 22px 70px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    /* ===== Inputs ===== */
+    .form-control, .form-select, .input-group-text{
+      background: rgba(255,255,255,.07) !important;
+      border-color: rgba(255,255,255,.14) !important;
+      color: var(--txt) !important;
+    }
+    .form-control::placeholder{ color: rgba(255,255,255,.55) !important; }
+    .form-select option{ color:#0b0f19; } /* dropdown readable */
+
+    .form-control:focus, .form-select:focus{
+      border-color: rgba(13,110,253,.55) !important;
+      box-shadow: 0 0 0 .22rem var(--glow) !important;
+    }
+
+    /* ===== Buttons (premium) ===== */
+    .btn{
+      border-radius: 14px;
+    }
+    .btn-primary{
+      box-shadow: 0 14px 30px rgba(13,110,253,.22);
+    }
+    .btn-outline-light{
+      border-color: rgba(255,255,255,.28) !important;
+    }
+
+    /* ===== Animated tick ===== */
+    .tick-wrap{
+      width:132px; height:132px;
+      border-radius: 999px;
+      display:grid; place-items:center;
+      background: rgba(25,135,84,.12);
+      border: 1px solid rgba(25,135,84,.38);
+      margin-inline:auto;
+      box-shadow: 0 18px 38px rgba(0,0,0,.35);
+    }
+    svg.tick{ width:92px; height:92px; }
+    .tick circle{
+      stroke: var(--good);
+      stroke-width: 6;
+      fill: none;
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: drawCircle .7s ease forwards;
+    }
+    .tick path{
+      stroke: var(--good);
+      stroke-width: 7;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 90;
+      stroke-dashoffset: 90;
+      animation: drawTick .55s .55s ease forwards;
+    }
+    @keyframes drawCircle { to { stroke-dashoffset: 0; } }
+    @keyframes drawTick   { to { stroke-dashoffset: 0; } }
+
+    /* ===== Giveaway ID box ===== */
+    .code-box{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      letter-spacing:.9px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 14px;
+      padding: 12px 14px;
+      user-select: all;
+      color: #fff !important;
+      font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .code-box::selection{
+      background: rgba(99,102,241,.45);
+      color: #fff;
+    }
+
+    /* ===== Smooth page swap ===== */
+    .hidden{ display:none !important; }
+
+    /* ===== subtle divider look for sections ===== */
+    .soft-line{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+      margin: 18px 0;
+    }
+  </style>
+</head>
+
+<body class="d-flex align-items-center">
+  <main class="container py-5" style="max-width:800px;">
+
+    <div class="topbar">
+      <div class="pill">
+        <span class="small-muted" data-i18n="powered">Giveaway</span>
+      </div>
+
+      <!-- Language toggle -->
+      <div class="btn-group" role="group" aria-label="Language">
+        <button id="langEN" type="button" class="btn btn-sm btn-outline-light">EN</button>
+        <button id="langRU" type="button" class="btn btn-sm btn-outline-light">RU</button>
+      </div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="brand">
+      <img src="logo.png" alt="Company Logo"
+           onerror="this.style.display='none'; document.getElementById('logoFallback').classList.remove('d-none');" />
+      <div id="logoFallback" class="d-none text-center">
+        <div class="fw-bold fs-4" data-i18n="companyLogo">Company Logo</div>
+        <div class="tiny-muted">logo.png not found</div>
+      </div>
+    </div>
+
+    <!-- FORM PAGE -->
+    <section id="formPage" class="card p-4 p-md-5">
+      <div class="text-center mb-3">
+        <h1 class="fw-bold mb-2" data-i18n="title">Enter the Giveaway</h1>
+        <div class="small-muted" data-i18n="subtitle">Fill in your details and submit.</div>
+      </div>
+
+      <div class="soft-line"></div>
+
+      <form id="joinForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label" data-i18n="fullNameLabel">Full Name</label>
+          <input id="fullName" class="form-control form-control-lg"
+                 data-i18n-ph="fullNamePh" placeholder="e.g., Yusuf Yilmaz" required minlength="3" />
+          <div class="invalid-feedback" data-i18n="nameInvalid">Please enter your full name.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" data-i18n="phoneLabel">Phone Number</label>
+          <div class="input-group input-group-lg">
+            <select id="countryCode" class="form-select" style="max-width: 210px;">
+              <option value="+90" selected>🇹🇷 +90 (TR)</option>
+              <option value="+998">🇺🇿 +998 (UZ)</option>
+              <option value="+7">🇷🇺 +7 (RU/KZ)</option>
+              <option value="+996">🇰🇬 +996 (KG)</option>
+              <option value="+992">🇹🇯 +992 (TJ)</option>
+              <option value="+993">🇹🇲 +993 (TM)</option>
+              <option value="+994">🇦🇿 +994 (AZ)</option>
+              <option value="+995">🇬🇪 +995 (GE)</option>
+              <option value="+380">🇺🇦 +380 (UA)</option>
+              <option value="+375">🇧🇾 +375 (BY)</option>
+            </select>
+            <input id="phone" class="form-control" inputmode="tel"
+                   data-i18n-ph="phonePh" placeholder="digits only" required />
+            <div class="invalid-feedback" data-i18n="phoneInvalid">Please enter a valid phone number.</div>
+          </div>
+          <div class="form-text tiny-muted" data-i18n="phoneHelp">
+            Choose country code and enter digits (spaces allowed).
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" data-i18n="hotelLabel">Hotel Name</label>
+          <input id="hotel" class="form-control form-control-lg"
+                 data-i18n-ph="hotelPh" placeholder="e.g., Hilton Istanbul" required minlength="2" />
+          <div class="invalid-feedback" data-i18n="hotelInvalid">Please enter your hotel name.</div>
+        </div>
+
+        <button id="submitBtn" class="btn btn-primary btn-lg w-100 fw-semibold" type="submit" data-i18n="submitBtn">
+          Submit
+        </button>
+
+        <div class="text-center mt-3 tiny-muted" data-i18n="privacyNote">
+          Your data is used only for giveaway participation.
+        </div>
+      </form>
+    </section>
+
+    <!-- SUCCESS PAGE -->
+    <section id="successPage" class="card p-4 p-md-5 hidden">
+      <div class="text-center">
+        <div class="tick-wrap mb-3">
+          <svg class="tick" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="41"></circle>
+            <path d="M28 52 L44 67 L73 36"></path>
+          </svg>
+        </div>
+
+        <h2 class="fw-bold mb-2" data-i18n="approvedTitle">Approved</h2>
+        <div class="small-muted mb-3" data-i18n="approvedSub">Your entry has been received.</div>
+
+        <div class="soft-line"></div>
+
+        <div class="text-start small-muted mb-2" data-i18n="kuraIdLabel">Giveaway ID</div>
+        <div class="d-flex gap-2 align-items-stretch">
+          <div id="kuraId" class="code-box flex-grow-1">—</div>
+          <button id="copyBtn" class="btn btn-success fw-semibold" type="button" data-i18n="copyBtn">Copy</button>
+        </div>
+        <div id="copyHint" class="tiny-muted mt-2" style="min-height:18px;"></div>
+
+        <button id="newBtn" class="btn btn-outline-light mt-4 w-100" type="button" data-i18n="newBtn">
+          New Entry
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ---------- i18n ----------
+    const i18n = {
+      en: {
+        powered: "Giveaway",
+        companyLogo: "Company Logo",
+        title: "Enter the Giveaway",
+        subtitle: "Fill in your details and submit.",
+        fullNameLabel: "Full Name",
+        fullNamePh: "e.g., Yusuf Yilmaz",
+        phoneLabel: "Phone Number",
+        phonePh: "digits only",
+        phoneHelp: "Choose country code and enter digits (spaces allowed).",
+        hotelLabel: "Hotel Name",
+        hotelPh: "e.g., Hilton Istanbul",
+        submitBtn: "Submit",
+        approvedTitle: "Approved",
+        approvedSub: "Your entry has been received.",
+        kuraIdLabel: "Giveaway ID",
+        copyBtn: "Copy",
+        newBtn: "New Entry",
+        nameInvalid: "Please enter your full name.",
+        phoneInvalid: "Please enter a valid phone number.",
+        hotelInvalid: "Please enter your hotel name.",
+        copied: "Copied ✅",
+        copyFail: "Copy failed (browser permission).",
+        sending: "Sending...",
+        privacyNote: "Your data is used only for giveaway participation."
+      },
+      ru: {
+        powered: "Розыгрыш",
+        companyLogo: "Логотип компании",
+        title: "Участие в розыгрыше",
+        subtitle: "Заполните данные и отправьте.",
+        fullNameLabel: "Имя и фамилия",
+        fullNamePh: "например: Yusuf Yilmaz",
+        phoneLabel: "Номер телефона",
+        phonePh: "только цифры",
+        phoneHelp: "Выберите код страны и введите цифры (пробелы можно).",
+        hotelLabel: "Название отеля",
+        hotelPh: "например: Hilton Istanbul",
+        submitBtn: "Отправить",
+        approvedTitle: "Подтверждено",
+        approvedSub: "Ваша заявка принята.",
+        kuraIdLabel: "ID розыгрыша",
+        copyBtn: "Копировать",
+        newBtn: "Новая заявка",
+        nameInvalid: "Пожалуйста, введите имя и фамилию.",
+        phoneInvalid: "Пожалуйста, введите корректный номер телефона.",
+        hotelInvalid: "Пожалуйста, укажите название отеля.",
+        copied: "Скопировано ✅",
+        copyFail: "Не удалось скопировать (разрешения браузера).",
+        sending: "Отправка...",
+        privacyNote: "Данные используются только для участия в розыгрыше."
+      }
+    };
+
+    let lang = "en";
+    const setLang = (l) => {
+      lang = l;
+      document.title = (l === "ru") ? "Участие в розыгрыше" : "Giveaway Entry";
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const k = el.getAttribute("data-i18n");
+        if(i18n[lang][k]) el.textContent = i18n[lang][k];
+      });
+
+      document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+        const k = el.getAttribute("data-i18n-ph");
+        if(i18n[lang][k]) el.setAttribute("placeholder", i18n[lang][k]);
+      });
+
+      const enBtn = document.getElementById("langEN");
+      const ruBtn = document.getElementById("langRU");
+      enBtn.classList.toggle("btn-light", lang === "en");
+      enBtn.classList.toggle("btn-outline-light", lang !== "en");
+      ruBtn.classList.toggle("btn-light", lang === "ru");
+      ruBtn.classList.toggle("btn-outline-light", lang !== "ru");
+      enBtn.classList.toggle("text-dark", lang === "en");
+      ruBtn.classList.toggle("text-dark", lang === "ru");
+    };
+
+    document.getElementById("langEN").addEventListener("click", () => setLang("en"));
+    document.getElementById("langRU").addEventListener("click", () => setLang("ru"));
+    setLang("en");
+
+    // ---------- App ----------
+    const formPage = document.getElementById('formPage');
+    const successPage = document.getElementById('successPage');
+
+    const form = document.getElementById('joinForm');
+    const fullName = document.getElementById('fullName');
+    const phone = document.getElementById('phone');
+    const hotel = document.getElementById('hotel');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const kuraIdEl = document.getElementById('kuraId');
+    const copyBtn = document.getElementById('copyBtn');
+    const copyHint = document.getElementById('copyHint');
+    const newBtn = document.getElementById('newBtn');
+
+    function normalizeDigits(input){
+      return (input || '').replace(/[^\d]/g, '');
+    }
+
+    // Generic validation for international numbers: 6-15 digits
+    function isValidPhone(digits){
+      return digits.length >= 6 && digits.length <= 15;
+    }
+
+    phone.addEventListener('input', () => phone.classList.remove('is-invalid'));
+    fullName.addEventListener('input', () => fullName.classList.remove('is-invalid'));
+    hotel.addEventListener('input', () => hotel.classList.remove('is-invalid'));
+
+    function makeKuraId(){
+      const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      const chunk = (n) => Array.from({length:n}, () => alphabet[Math.floor(Math.random()*alphabet.length)]).join('');
+      const year = new Date().getFullYear();
+      return `KURA-${year}-${chunk(4)}-${chunk(4)}`;
+    }
+
+    function showSuccess(){
+      formPage.classList.add('hidden');
+      successPage.classList.remove('hidden');
+
+      // restart tick animation (clone svg)
+      const svg = successPage.querySelector('svg.tick');
+      const clone = svg.cloneNode(true);
+      svg.parentNode.replaceChild(clone, svg);
+    }
+
+    function showForm(){
+      successPage.classList.add('hidden');
+      formPage.classList.remove('hidden');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      copyHint.textContent = '';
+
+      // set localized invalid messages
+      const invalids = form.querySelectorAll('.invalid-feedback');
+      invalids[0].textContent = i18n[lang].nameInvalid;
+      invalids[1].textContent = i18n[lang].phoneInvalid;
+      invalids[2].textContent = i18n[lang].hotelInvalid;
+
+      const nameVal = (fullName.value || '').trim();
+      const phoneDigits = normalizeDigits(phone.value);
+      const hotelVal = (hotel.value || '').trim();
+
+      let ok = true;
+      if(nameVal.length < 3){ fullName.classList.add('is-invalid'); ok = false; }
+      if(!isValidPhone(phoneDigits)){ phone.classList.add('is-invalid'); ok = false; }
+      if(hotelVal.length < 2){ hotel.classList.add('is-invalid'); ok = false; }
+
+      if(!ok) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = i18n[lang].sending;
+
+      // Here you can send to backend with fetch()
+      setTimeout(() => {
+        kuraIdEl.textContent = makeKuraId();
+        showSuccess();
+        submitBtn.disabled = false;
+        submitBtn.textContent = i18n[lang].submitBtn;
+      }, 350);
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = kuraIdEl.textContent.trim();
+      try{
+        await navigator.clipboard.writeText(text);
+        copyHint.textContent = i18n[lang].copied;
+      }catch{
+        copyHint.textContent = i18n[lang].copyFail;
+      }
+      setTimeout(() => { copyHint.textContent = ''; }, 1600);
+    });
+
+    newBtn.addEventListener('click', () => {
+      form.reset();
+      fullName.classList.remove('is-invalid');
+      phone.classList.remove('is-invalid');
+      hotel.classList.remove('is-invalid');
+      kuraIdEl.textContent = '—';
+      copyHint.textContent = '';
+      showForm();
+      fullName.focus();
+    });
+  </script>
+</body>
+</html>
