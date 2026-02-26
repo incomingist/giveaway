@@ -118,6 +118,17 @@ svg.tick{ width:92px; height:92px; }
 }
 
 .hidden{ display:none !important; }
+  /* Native select dropdown fix (Windows/Firefox) */
+.form-select option {
+  color: #111 !important;
+  background: #fff !important;
+}
+
+/* Select kapalıyken (input gibi) koyu kalsın */
+.form-select {
+  color: #fff !important;
+  background-color: rgba(255,255,255,.07) !important;
+}
 </style>
 </head>
 
@@ -152,12 +163,17 @@ svg.tick{ width:92px; height:92px; }
 <div class="mb-3">
 <label class="form-label" data-i18n="phoneLabel">Phone Number</label>
 <div class="input-group input-group-lg">
-<select id="countryCode" class="form-select" style="max-width:210px;">
-<option value="+90">🇹🇷 +90</option>
-<option value="+998">🇺🇿 +998</option>
-<option value="+7">🇷🇺 +7</option>
-<option value="+996">🇰🇬 +996</option>
-<option value="+992">🇹🇯 +992</option>
+<select id="countryCode" class="form-select" style="max-width: 210px;">
+  <option value="+90" selected>TR +90 (TR)</option>
+  <option value="+998">UZ +998 (UZ)</option>
+  <option value="+7">RU +7 (RU/KZ)</option>
+  <option value="+996">KG +996 (KG)</option>
+  <option value="+992">TJ +992 (TJ)</option>
+  <option value="+993">TM +993 (TM)</option>
+  <option value="+994">AZ +994 (AZ)</option>
+  <option value="+995">GE +995 (GE)</option>
+  <option value="+380">UA +380 (UA)</option>
+  <option value="+375">BY +375 (BY)</option>
 </select>
 <input id="phone" name="phone" autocomplete="off"
        class="form-control"
@@ -335,3 +351,4 @@ formPage.classList.remove("hidden");
 
 
 <!-- redeploy -->
+
